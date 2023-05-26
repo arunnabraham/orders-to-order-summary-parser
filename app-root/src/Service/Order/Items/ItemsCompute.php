@@ -3,40 +3,46 @@
 namespace App\Service\Order\Items;
 
 use App\Service\Money\MoneyCompute;
-use Money\Money;
+use App\Service\Pricing\Price;
 
-readonly class ItemsCompute
+class ItemsCompute
 {
+    private array $items;
+    private array $discounts;
+
+    private float $totalPrice;
+
     public function __construct(
-        public array $items,
-        public array $discount
+        private readonly Price $price,
     ) {
     }
 
-    public function getTotalQuantities(): int
+    public function setItemProperties(array $items, array $discounts): void
     {
-        return array_sum(array_column($this->items, 'quantities'));
+        $this->items = $items;
+        $this->discounts = $discounts;
     }
 
-    public function getTotalCartItems(): int
+    private function getTotalPrice(): MoneyCompute
     {
-        return count($this->items);
-    }
-
-    public function getTotalUnitPrice(): MoneyCompute
-    {
-        $priceMoney = array_map(function (mixed $price): Money {
-            return (new MoneyCompute())->setAmount((string) $price)->getMoney();
-        }, array_column($this->items, 'unit_price'));
-
-        return (new MoneyCompute())->setMoney(
-            (new MoneyCompute())
-                ->getNewMoney()
-                ->money()->add(...$priceMoney)
+        return $this->price->getTotalPrice(
+            array_column($this->items, 'unit_price'),
+            array_column($this->items, 'quantity')
         );
     }
 
-    public function getTotalDiscount()
+    public function getFinalPrice(): MoneyCompute
     {
+        return $this->price->getDiscountedPrice($this->getTotalPrice(), $this->discounts);
+    }
+
+    public function unitCount(): int
+    {
+        return array_sum(array_column($this->items, 'quantity'));
+    }
+
+    public function getAverageUnitPrice(): MoneyCompute
+    {
+        return $this->price->averageUnitPrice($this->getTotalPrice()->money(), $this->unitCount());
     }
 }

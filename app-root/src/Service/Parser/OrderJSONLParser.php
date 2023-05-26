@@ -4,10 +4,10 @@ namespace App\Service\Parser;
 
 use Sunaoka\Ndjson\NDJSON as JSONL;
 
-class OrderJSONLParser implements OrderParserInterface
+readonly class OrderJSONLParser implements OrderParserInterface
 {
     public function __construct(
-        private readonly JSONL $jsonlParser
+        private JSONL $jsonlParser
     ) {
     }
 

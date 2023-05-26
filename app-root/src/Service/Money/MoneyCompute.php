@@ -10,9 +10,9 @@ class MoneyCompute
 {
     private ?Money $money = null;
 
-    public function setAmount(string $amount, string $currency = 'USD'): self
+    public function setAmount(string $amount): self
     {
-        $this->money = Money::{strtoupper($currency)}(str_replace('.', '', $amount));
+        $this->money = Money::USD((int) ((float) $amount * 100));
 
         return $this;
     }
@@ -29,9 +29,9 @@ class MoneyCompute
         return $this->money;
     }
 
-    public function getNewMoney($currency = 'USD'): self
+    public function getNewMoney(): self
     {
-        return $this->setAmount(0, $currency);
+        return $this->setAmount(0);
     }
 
     public function getDecimal(): string
