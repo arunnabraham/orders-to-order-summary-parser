@@ -4,9 +4,11 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "php": ">=8.1",
+        "php": ">=8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "moneyphp/money": "^3.3",
+        "sunaoka/ndjson": "^1.1",
         "symfony/console": "6.2.*",
         "symfony/dotenv": "6.2.*",
         "symfony/flex": "^2",
@@ -15,7 +17,12 @@
         "symfony/yaml": "6.2.*"
     },
     "require-dev": {
-        "symfony/maker-bundle": "^1.48"
+        "friendsofphp/php-cs-fixer": "^3.17",
+        "phpunit/phpunit": "^9.5",
+        "symfony/browser-kit": "6.2.*",
+        "symfony/css-selector": "6.2.*",
+        "symfony/maker-bundle": "^1.48",
+        "symfony/phpunit-bridge": "^6.2"
     },
     "config": {
         "allow-plugins": {
@@ -45,6 +52,7 @@
         "symfony/polyfill-php81": "*"
     },
     "scripts": {
+        "csfix": "php vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix ./src --rules=@Symfony,-@PSR2,-@PSR1,statement_indentation,function_declaration,visibility_required,curly_braces_position,binary_operator_spaces",
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
