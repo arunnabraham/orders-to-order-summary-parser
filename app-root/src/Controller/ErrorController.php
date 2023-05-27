@@ -10,7 +10,6 @@ class ErrorController extends AbstractController
 {
     public function index(Request $request): JsonResponse
     {
-
         return $this->json([
             'status' => 'error',
         ]);

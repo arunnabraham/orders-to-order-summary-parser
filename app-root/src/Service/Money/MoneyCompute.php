@@ -13,12 +13,12 @@ class MoneyCompute
         private readonly string $currency
     ) {
     }
-    private ?Money $money = null;
+    private Money $money;
 
     public function setAmount(string $amount): self
     {
         $this->money = Money::{$this->currency}(
-            $this->moneyParser->parse($amount, $this->currency)->getAmount()
+            $this->moneyParser->parse($amount)->getAmount()
         );
 
         return $this;
@@ -38,7 +38,7 @@ class MoneyCompute
 
     public function getNewMoney(): self
     {
-        return $this->setAmount(0);
+        return $this->setAmount('0');
     }
 
     public function getDecimal(): string

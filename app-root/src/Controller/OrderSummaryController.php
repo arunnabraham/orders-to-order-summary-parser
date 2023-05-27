@@ -11,8 +11,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class OrderSummaryController extends AbstractController
 {
-    private array $orderRecords;
-
     #[Route('/order-summary', name: 'order_summary', methods: ['GET'])]
     public function index(OrderSummary $orderSummary): JsonResponse
     {

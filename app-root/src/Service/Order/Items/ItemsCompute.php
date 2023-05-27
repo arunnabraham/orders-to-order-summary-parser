@@ -7,10 +7,8 @@ use App\Service\Pricing\Price;
 
 class ItemsCompute
 {
-    private array $items;
-    private array $discounts;
-
-    private float $totalPrice;
+    private array $items = [];
+    private array $discounts = [];
 
     public function __construct(
         private readonly Price $price,
@@ -36,7 +34,7 @@ class ItemsCompute
         return $this->price->getDiscountedPrice($this->getTotalPrice(), $this->discounts);
     }
 
-    public function unitCount(): int
+    public function unitCount(): float|int
     {
         return array_sum(array_column($this->items, 'quantity'));
     }
