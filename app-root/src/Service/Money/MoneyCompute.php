@@ -8,11 +8,18 @@ use Money\Money;
 
 class MoneyCompute
 {
+    public function __construct(
+        private readonly MoneyParser $moneyParser,
+        private readonly string $currency
+    ) {
+    }
     private ?Money $money = null;
 
     public function setAmount(string $amount): self
     {
-        $this->money = Money::USD((int) ((float) $amount * 100));
+        $this->money = Money::{$this->currency}(
+            $this->moneyParser->parse($amount, $this->currency)->getAmount()
+        );
 
         return $this;
     }

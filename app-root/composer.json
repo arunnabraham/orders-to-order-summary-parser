@@ -53,6 +53,11 @@
     },
     "scripts": {
         "csfix": "php vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix ./src --rules=@Symfony,-@PSR2,-@PSR1,statement_indentation,function_declaration,visibility_required,curly_braces_position,binary_operator_spaces,single_blank_line_at_eof",
+        "test": "php bin/phpunit",
+        "quality": [
+            "@csfix",
+            "@test"
+        ],
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"

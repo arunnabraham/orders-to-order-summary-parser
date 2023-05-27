@@ -13,7 +13,7 @@ class OrderSummaryController extends AbstractController
 {
     private array $orderRecords;
 
-    #[Route('/order-summary', name: 'order_summary')]
+    #[Route('/order-summary', name: 'order_summary', methods: ['GET'])]
     public function index(OrderSummary $orderSummary): JsonResponse
     {
         return $this->json(['orderData' => $orderSummary->generateOrderRecords()]);

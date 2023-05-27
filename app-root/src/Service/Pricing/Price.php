@@ -5,7 +5,7 @@ namespace App\Service\Pricing;
 use App\Service\Money\MoneyCompute;
 use Money\Money;
 
-class Price
+readonly class Price
 {
     public function __construct(
         private Discount $discount,
@@ -16,11 +16,11 @@ class Price
     public function getTotalPrice(array $unitPrices, array $quantities): MoneyCompute
     {
         $priceMoney = array_map(function (mixed $price, int $quantity): Money {
-            return (new MoneyCompute())->setAmount($price)->money()->multiply($quantity);
+            return $this->moneyCompute->setAmount($price)->money()->multiply($quantity);
         }, $unitPrices, $quantities);
 
         return $this->moneyCompute->setMoney(
-            (new MoneyCompute())
+            $this->moneyCompute
                 ->getNewMoney()
                 ->money()->add(...$priceMoney)
         );
