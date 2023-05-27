@@ -30,8 +30,10 @@ The objective of the application is to parse jsonl format of orders and get its 
 * Linux (Alpine Docker)
 
 # Quick Start
+
 * Make sure to add .env key `ORDER_INFO_PATH=/absolute/path/for/import/coding-challenge-1.jsonl`
 * After git clone change directory to ``/app-root``
+* run `composer install`
 * run `symfony server:start` (requires symfony cli)
 * In browser go to order path `/order-summary` for the output
 
