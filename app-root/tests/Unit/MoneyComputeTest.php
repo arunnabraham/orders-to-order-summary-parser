@@ -39,8 +39,8 @@ class MoneyComputeTest extends TestCase
                 'expectedOutput' => '10000.00'
             ],
             [
-            'input' => '100.97',
-            'expectedOutput' => '100.97'
+                'input' => '100.97',
+                'expectedOutput' => '100.97'
             ],
         ];
     }

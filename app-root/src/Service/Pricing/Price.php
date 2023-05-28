@@ -15,8 +15,8 @@ readonly class Price
 
     public function getTotalPrice(array $unitPrices, array $quantities): MoneyCompute
     {
-        $priceMoney = array_map(function (mixed $price, int $quantity): Money {
-            return $this->moneyCompute->setAmount($price)->money()->multiply($quantity);
+        $priceMoney = array_map(function (float $price, int $quantity): Money {
+            return $this->moneyCompute->setAmount((string) $price)->money()->multiply($quantity);
         }, $unitPrices, $quantities);
 
         return $this->moneyCompute->setMoney(
@@ -26,11 +26,11 @@ readonly class Price
         );
     }
 
-    public function getDiscountedPrice(MoneyCompute $moneyCompute, array $discounts): MoneyCompute
+    public function getDiscountedPrice(MoneyCompute $moneyComputeInput, array $discounts): MoneyCompute
     {
-        return $this->moneyCompute->setMoney($moneyCompute->money()->subtract(
+        return $this->moneyCompute->setMoney($moneyComputeInput->money()->subtract(
             $this->discount->getTotalDiscount(
-                $moneyCompute->money(),
+                $moneyComputeInput->money(),
                 $discounts
             )
         ));
